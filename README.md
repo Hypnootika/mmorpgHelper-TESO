@@ -14,9 +14,10 @@
 
 
 ## USAGE
-- Recomended usage is the assistant in combination with the toolbox to build a custom ability rotation,
-    just use folder names, in assets\skills\ like: arc\, nec\, war\, sor\, tem\ and assign the proper ability
-    image to the correct number.
+- Recomended usage is the assistant in combination with the toolbox to build a custom
+    ability rotation, just use folder names, in assets\skills\ like: arc\ or nec\ or
+    war\ or sor\ or tem\ and assign the proper ability image to the correct number.
+    Take a look at src\engine\combat.py and expand the function to your needs.
 - Use the macro recorder to get a minigame or simple task done, atm for testing purpose.
 - With toolbox open: 'home' hotkey get coordinates and rgb colors at mouse cursor.
 - With toolbox open: 'insert' hotkey save image per parameters from gui at mouse cursor.
