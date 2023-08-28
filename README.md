@@ -2,14 +2,14 @@
 
 ## DESCRIPTION
 - The elder scrolls online combat assistant, pixel bot and toolbox.
-- Set up a combat rotation and let the assistant do the combat. 90% accurate
+- Set up a combat rotation and let the assistant do the combat. 95% accurate
 - Use the macro recorder/player to get a minigame or simple task done. ??% accurate
 
 
 ## PARAMETER
 - Set key assignment in config.yml.
-- Set windowed fullscreen with 1920x1080 resolution.
-- Recomended use of us keyboard layout.
+- Recomended use of windowed fullscreen with 1920x1080 resolution.
+- Recomended use of US/EN or standard keyboard layout.
 - Python 3.9 interpreter, see requirements.txt.
 
 
@@ -21,8 +21,8 @@
 - Use the macro recorder to get a minigame or simple task done, atm for testing purpose.
 - With toolbox open: 'home' hotkey get coordinates and rgb colors at mouse cursor.
 - With toolbox open: 'insert' hotkey save image per parameters from gui at mouse cursor.
-- 'end' hotkey exit active process.
-- 'delete' or 'capslock' hotkey pause active process. Use to toggle fight on/off
+- 'end' hotkey to exit active process.
+- 'delete' or 'capslock' hotkey to pause active process. Use to toggle fight on/off
 
 
 ## CREDITS
