@@ -1,7 +1,7 @@
 # <img src="assets/layout/little_botty_title.png" width="640">
 
 ## DESCRIPTION
-- The elder scrolls online combat assistant, pixel bot and toolbox.
+- The Elder Scrolls Online combat assistant, pixel bot and toolbox.
 - Set up a combat rotation and let the assistant do the combat. 95% accurate
 - Use the macro recorder/player to get a minigame or simple task done. ??% accurate
 
