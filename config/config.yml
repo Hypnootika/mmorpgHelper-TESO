@@ -1,6 +1,7 @@
 class: Nightblade Bow
-evade: shift
-swap: q
+name: 'mmorpgHelper'
+evade: 'shift'
+swap: 'q'
 skill01: '1'
 skill02: '2'
 skill03: '3'
@@ -11,4 +12,4 @@ skill07: '2'
 skill08: '3'
 skill09: '4'
 skill10: '5'
-skillUlt: r
+skillUlt: 'r'
