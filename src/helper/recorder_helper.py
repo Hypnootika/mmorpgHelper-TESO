@@ -6,7 +6,7 @@ from pynput import keyboard as ke
 from pynput.keyboard import Controller as Controller_k, Key
 from pynput.mouse import Controller as Controller_m, Button
 
-from helper import process_helper, mouse_helper
+from src.helper import process_helper, mouse_helper
 
 
 dic = {
@@ -23,7 +23,7 @@ dic = {
     "Key.up": Key.up,
     "Key.down": Key.down,
     "Key.right": Key.right,
-    "Key.shift_r": 	Key.shift_r,
+    "Key.shift_r": Key.shift_r,
     "Key.enter": Key.enter,
     "Key.backspace": Key.backspace,
     "Key.esc": Key.esc,
@@ -38,15 +38,13 @@ class Record:
         self.history = []
         self.k_listener = ke.Listener(on_press=self.press, on_release=self.release)
         self.m_listener = mo.Listener(on_click=self.click, on_scroll=self.scroll)
-
+        self.replay_thread = None
 
     def click(self, x, y, button, pressed):
         self.history.append((time() - self.st_tm, "{0}".format(button), pressed, x, y))
 
-
     def scroll(self, x, y, dx, dy):
         self.history.append((time() - self.st_tm, "scroll", dy, x, y))
-
 
     def press(self, key):
         try:
@@ -54,38 +52,36 @@ class Record:
         except AttributeError:
             self.history.append((time() - self.st_tm, "key", str(key), True, False))
 
-
     def release(self, key):
         try:
             self.history.append((time() - self.st_tm, "key", key.char, False, True))
         except AttributeError:
             self.history.append((time() - self.st_tm, "key", str(key), False, False))
 
-
     def prepare_record_start(self):
-        self.replay_thread = Thread(target=self.record_start)
-        if not self.replay_thread.is_alive():
+        if self.replay_thread is None:
+            self.replay_thread = Thread(target=self.record_start)
+        if not self.replay_thread.is_alive() and self.replay_thread is not None:
             self.replay_thread = None
             self.replay_thread = Thread(target=self.record_start)
             self.replay_thread.start()
 
-
     def record_start(self):
-        proc = process_helper.ProcessHelper()
-        proc.set_foreground_window()
+        # proc = process_helper.ProcessHelper()
+        # proc.set_foreground_window()
 
         self.st_tm = time()
         self.m_listener.start()
         self.k_listener.start()
 
-
     def record_stop(self):
         self.m_listener.stop()
         self.k_listener.stop()
+        self.k_listener = ke.Listener(on_press=self.press, on_release=self.release)
+        self.m_listener = mo.Listener(on_click=self.click, on_scroll=self.scroll)
         self.replay_thread.join()
-        self.history.pop()  # deletes last clicks
-        self.history.pop()
-        self.history.pop()
+        if self.history:
+            self.history.pop()  # delete first click
 
         x = 0
         y = 1
@@ -109,7 +105,6 @@ class Replay:
         self.keyboard = Controller_k()
         self.mouse = Controller_m()
 
-
     def replay_run(self):
         proc = process_helper.ProcessHelper()
         proc.set_foreground_window()
@@ -122,8 +117,8 @@ class Replay:
 
             if action[1][:7] == "Button.":
                 mouse_helper.move_smooth(x, y, tm)
-                #time.sleep(tm)
-                #self.mouse.position = (x, y)
+                # time.sleep(tm)
+                # self.mouse.position = (x, y)
                 try:
                     if action[2]:
                         self.mouse.press(self.dic[action[1]])
@@ -134,10 +129,10 @@ class Replay:
 
             elif action[1] == "scroll":
                 mouse_helper.move_smooth(x, y, tm)
-                #time.sleep(tm)
-                #self.mouse.position = (x, y)
+                # time.sleep(tm)
+                # self.mouse.position = (x, y)
                 self.mouse.scroll(None, action[2])
-                
+
             elif action[1] == "key":
                 if action[3]:
                     try:
@@ -157,4 +152,3 @@ class Replay:
                         error("Unknown key " + str(action[2]))
             else:
                 error("Unknown action")
-

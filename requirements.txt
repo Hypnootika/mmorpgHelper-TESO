@@ -8,4 +8,7 @@ pynput
 pydirectinput
 keyboard
 pywin32
-
+black
+requests
+pytweening
+PyYAML

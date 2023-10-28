@@ -8,9 +8,8 @@ class Handler(QObject, Handler):
     def __init__(self, parent):
         super().__init__(parent)
         super(Handler).__init__()
-        formatter = Formatter('[%(levelname)s] %(message)s')
-        self.setFormatter(formatter)
-
+        self.formatter = Formatter("[%(levelname)s] %(message)s")
+        self.setFormatter(self.formatter)
 
     def emit(self, record):
         msg = self.format(record)
@@ -20,13 +19,10 @@ class Handler(QObject, Handler):
 
 class Formatter(Formatter):
     def formatException(self, ei):
-        result = super(Formatter, self).formatException(ei)
-        return result
-
+        return super().formatException(ei)
 
     def format(self, record):
-        s = super(Formatter, self).format(record)
+        s = super().format(record)
         if record.exc_text:
-            s = s.replace('\n', '')
-        return s 
-
+            s = s.replace("\n", "")
+        return s
